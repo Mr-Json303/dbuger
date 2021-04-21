@@ -24,7 +24,7 @@ db.sequelize = sequelize;
 
 //Modelos Base
 db.User = require('./user.models')(sequelize,Sequelize);
-db.Role = require('./roles.models')(sequelize,Sequelize);
+db.Role = require('./role.models')(sequelize,Sequelize);
 
 //Relaciones
 db.Role.hasMany(db.User);

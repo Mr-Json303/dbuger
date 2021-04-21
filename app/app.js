@@ -1,10 +1,10 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config({path:'/app/config/.env'});
+require('dotenv').config({path: __dirname + `/config/.env`});
 
 const App = express();
 
-//Control de URL que acceden a la API
+//Control de URL que acceden a la APIr
 const corsOptions = {
     origin: ['https://localhost:4000', 'http://localhost']
 }
@@ -14,15 +14,23 @@ App.use(cors(corsOptions));
 
 //MOTOR DB
 const db = require('./models');
-db.sequelize.sync({}).then((result) =>{
+db.sequelize.sync().then((result) =>{
     console.log('DB Sincronizada OK')
 }).catch((err) => {
     console.log('ERROR DB al sincronizar \n', err);
 });
 
+//Import de archivos de rutas
+const UserRoutes = require('./routes/user.routes');
+const LoginRoutes = require('./routes/login.routes');
+const RegisterRoutes = require('./routes/register.routes');
+const RoleRoutes = require('./routes/role.routes');
+
 //Rutas
-const UserRoutes = require('./routes/usuarios.routes');
 App.use('/user',UserRoutes);
+App.use('/role', RoleRoutes);
+App.use('/login',LoginRoutes);
+App.use('/register',RegisterRoutes);
 
 const PORT = process.env.PORT || 3000;
 

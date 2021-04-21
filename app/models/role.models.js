@@ -5,15 +5,20 @@ module.exports = (sequelize, Sequelize) => {
 
     const Role = sequelize.define('Role', {
 
-        nombre:{ //General Admin
+        name:{ //General Admin
             type: DataTypes.STRING(50),
             allowNull: false,
             unique: true
         },
-        codigo:{ //ADM-GEN
+        code:{ //ADM-GEN
             type: DataTypes.STRING(10),
             allowNull: false,
             unique: true
+        },
+        deleted:{
+            type: DataTypes.BOOLEAN(),
+            allowNull: true,
+            defaultValue: false,
         },
 
     }, {});
