@@ -5,6 +5,10 @@ module.exports = (sequelize, Sequelize) => {
 
     const User = sequelize.define('User', {
 
+        name:{
+            type: DataTypes.STRING(100),
+            allowNull: false,
+        },
         email:{
             type: DataTypes.STRING(100),
             allowNull: false,

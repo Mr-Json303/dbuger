@@ -22,15 +22,15 @@ db.sequelize.sync().then((result) =>{
 
 //Import de archivos de rutas
 const UserRoutes = require('./routes/user.routes');
-const LoginRoutes = require('./routes/login.routes');
-const RegisterRoutes = require('./routes/register.routes');
 const RoleRoutes = require('./routes/role.routes');
+// const LoginRoutes = require('./routes/login.routes');
+// const RegisterRoutes = require('./routes/register.routes');
 
 //Rutas
 App.use('/user',UserRoutes);
 App.use('/role', RoleRoutes);
-App.use('/login',LoginRoutes);
-App.use('/register',RegisterRoutes);
+// App.use('/login',LoginRoutes);
+// App.use('/register',RegisterRoutes);
 
 const PORT = process.env.PORT || 3000;
 

@@ -1,6 +1,5 @@
 const {DataTypes} = require ('sequelize');
 
-
 module.exports = (sequelize, Sequelize) => {
 
     const Role = sequelize.define('Role', {
@@ -19,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
             type: DataTypes.BOOLEAN(),
             allowNull: true,
             defaultValue: false,
-        },
+        }
 
     }, {});
 
