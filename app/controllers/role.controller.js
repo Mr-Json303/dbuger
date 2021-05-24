@@ -1,8 +1,4 @@
 const db = require('../models/index');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const authConfig = require('../config/auth');
-const auth = require('../config/auth');
 
 function getAll(req, res){
 
@@ -21,9 +17,9 @@ function getAll(req, res){
     })
 
     
-};
+}
 
-function getWhere(req, res){
+function getOne(req, res){
 
     const key = req.params.key
     const value = req.params.value
@@ -66,7 +62,7 @@ function create(req, res){
     
 };
 
-function update(req, res){
+function edit(req, res){
 
     let editRegister = {
         name: req.body.name,
@@ -103,17 +99,13 @@ function update(req, res){
 function remove(req, res){
     req.body.deleted = true
 
-    update(req, res);
+    edit(req, res);
 };
-
-//function update(req, res);
-
-//function remove(req, res);
 
 module.exports = {
     getAll,
-    getWhere,
+    getOne,
     create,
-    update,
+    edit,
     remove
 }

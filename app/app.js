@@ -12,7 +12,7 @@ const corsOptions = {
 App.use(express.json()); //antes body parser
 App.use(cors(corsOptions));
 
-//MOTOR DB
+//DB Engine
 const db = require('./models');
 db.sequelize.sync().then((result) =>{
     console.log('DB Sincronizada OK')
@@ -20,17 +20,21 @@ db.sequelize.sync().then((result) =>{
     console.log('ERROR DB al sincronizar \n', err);
 });
 
-//Import de archivos de rutas
+//Route files import
 const UserRoutes = require('./routes/user.routes');
 const RoleRoutes = require('./routes/role.routes');
-// const LoginRoutes = require('./routes/login.routes');
-// const RegisterRoutes = require('./routes/register.routes');
+const LoginRegisterRoutes = require('./routes/login_register_user.routes')
+const ProjectRoutes = require('./routes/project.routes');
+const ProjectGroupRoutes = require('./routes/project_groups.routes')
 
-//Rutas
+
+//Routes
+App.use('/auth', LoginRegisterRoutes);
 App.use('/user',UserRoutes);
 App.use('/role', RoleRoutes);
-// App.use('/login',LoginRoutes);
-// App.use('/register',RegisterRoutes);
+App.use('/project', ProjectRoutes);
+App.use('/project-group', ProjectGroupRoutes);
+
 
 const PORT = process.env.PORT || 3000;
 
