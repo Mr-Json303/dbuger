@@ -21,6 +21,7 @@ function getOne(req, res) {
     const value = req.params.value
 
     db.Project.findAll({
+        attributes: ["id", "name", "description","id_project_creator"],
         where: {[key]: value}
 
     }).then(register =>{

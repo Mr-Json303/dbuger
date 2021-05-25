@@ -30,7 +30,7 @@ async function register(req, res) {
 
   db.User.create(newUser)
     .then((user) => {
-      res.status(200).send({
+      res.status(201).send({
         msg: "New User registered correctly",
         user,
       });
@@ -77,7 +77,7 @@ async function login(req, res) {
         roleid: varUser.RoleId,
       };
 
-      res.status(200).send({
+      res.status(202).send({
         msg: "Login was Successful",
         data,
       });

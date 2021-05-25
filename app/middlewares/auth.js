@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 
 module.exports = (req, res, next) => {
 
+    // console.log('req headers \n', req.headers );
     const authHeader = req.headers.authorization;
 
     if(!authHeader){

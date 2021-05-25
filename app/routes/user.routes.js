@@ -6,8 +6,8 @@ UserRoutes
 
   //Protected endpoints
   .get("/", auth, UserController.getAll)
-  .get("/find/:key/:value", UserController.getOne)
-  .put("/edit/:key/:value", UserController.update)
-  .delete("/delete/:key/:value", UserController.remove)
+  .get("/find/:key/:value", auth, UserController.getOne)
+  .put("/edit/:id", auth, UserController.edit)
+  .delete("/delete/:id", auth, UserController.remove)
 
 module.exports = UserRoutes;
