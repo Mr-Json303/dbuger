@@ -7,6 +7,7 @@ ProjectGroupRoutes
     .get('/', auth, ProjectGroupController.getAll)
     .post('/new', auth, ProjectGroupController.create)
     .get('/find/:key/:value', auth, ProjectGroupController.getOne)
+    .get('/find/:id', auth, ProjectGroupController.getGroup)
     .put('/edit/:id', auth, ProjectGroupController.edit)
     .delete('/delete/:id', auth, ProjectGroupController.remove);
 

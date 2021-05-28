@@ -39,7 +39,8 @@ function getOne(req, res) {
 function create(req, res) {
     const newRegister = {
         name: req.body.name,
-        description: req.body.code
+        description: req.body.code,
+        id_project_creator: req.body.id_project_creator
     }
 
     db.Project.create(newRegister)

@@ -11,13 +11,17 @@ module.exports = (sequelize, Sequelize) => {
         },
         email:{
             type: DataTypes.STRING(100),
-            allowNull: false,
-            unique: true
+            unique: true,
+            allowNull: true
         },
         password: {
             type: DataTypes.STRING(150),
-            allowNull: false
-        }
+            allowNull: true
+        },
+        deleted: {
+            type: DataTypes.BOOLEAN(),
+            allowNull: true
+        },
 
     }, {});
 

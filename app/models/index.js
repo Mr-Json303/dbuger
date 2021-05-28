@@ -32,11 +32,9 @@ db.User.hasMany(db.ProjectGRoup)
 db.Role.hasMany(db.ProjectGRoup)
 db.Project.hasMany(db.ProjectGRoup)
 
-// db.Role.belongsToMany(db.Project, {through : db.ProjectGRoup});
-
-// db.User.belongsToMany(db.Role, {through : db.ProjectGRoup});
-
-// db.Role.belongsToMany(db.User, {through : db.ProjectGRoup});
+db.ProjectGRoup.belongsTo(db.User)
+db.ProjectGRoup.belongsTo(db.Role)
+db.ProjectGRoup.belongsTo(db.Project)
 
 // db.User.belongsToMany(db.Project, {through : db.ProjectGRoup});
 // db.Role.belongsToMany(db.Project, {through : db.ProjectGRoup});

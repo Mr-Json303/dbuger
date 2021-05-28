@@ -2,10 +2,15 @@ const db = require("../models/index");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const authConfig = require("../config/auth");
+const { sequelize } = require("../models/index");
 
 function getAll(req, res) {
   db.User.findAll({
-    attributes: ["id", "name", "email"],
+    attributes: [
+      'id', 
+      'name', 
+      'email',
+    ],
   })
     .then((registers) => {
       res.status(200).send({
@@ -16,6 +21,7 @@ function getAll(req, res) {
     .catch((err) => {
       res.status(500).send({
         msg: "Something went wrong",
+        err
       });
     });
 }
@@ -63,6 +69,12 @@ async function edit(req, res) {
       password: varPassword,
     };
 
+    if (req.body.deleted) {
+      editRegister = {
+          deleted: true
+      } 
+   }
+
     db.User.update(editRegister, {
       where: { id: idReg },
     })
@@ -87,25 +99,29 @@ async function edit(req, res) {
 
 async function remove(req, res) {
 
-  let idReg = req.params.id;
+  req.body.deleted = true
 
-  try {
-    await db.User.destroy({
-      where: {
-        id: idReg,
-      },
-    });
-    res.status(200).send({ 
-      message: "The register was removed succesfully" 
-    });
-  } catch (error) {
-    res
-      .status(500)
-      .send({ 
-        message: "No se pudo efectuar la accion de eliminar", 
-        error 
-      });
-  }
+  edit(req, res);
+
+  // let idReg = req.params.id;
+
+  // try {
+  //   await db.User.destroy({
+  //     where: {
+  //       id: idReg,
+  //     },
+  //   });
+  //   res.status(200).send({ 
+  //     message: "The register was removed succesfully" 
+  //   });
+  // } catch (error) {
+  //   res
+  //     .status(500)
+  //     .send({ 
+  //       message: "No se pudo efectuar la accion de eliminar", 
+  //       error 
+  //     });
+  // }
 }
 
 module.exports = {

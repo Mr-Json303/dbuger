@@ -14,6 +14,8 @@ App.use(cors(corsOptions));
 
 //DB Engine
 const db = require('./models');
+
+// Modify tables if necesary = {alter: true}
 db.sequelize.sync().then((result) =>{
     console.log('DB Sincronizada OK')
 }).catch((err) => {
@@ -29,7 +31,9 @@ const ProjectGroupRoutes = require('./routes/project_groups.routes')
 
 
 //Routes
-App.use('/auth', LoginRegisterRoutes);
+App.use('/', LoginRegisterRoutes);
+// App.use('/login', LoginRegisterRoutes);
+// App.use('/register', LoginRegisterRoutes);
 App.use('/user',UserRoutes);
 App.use('/role', RoleRoutes);
 App.use('/project', ProjectRoutes);

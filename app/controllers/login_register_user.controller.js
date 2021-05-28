@@ -15,15 +15,10 @@ async function register(req, res) {
     parseInt(authConfig.rounds)
   );
 
-  const baseRole = await db.Role.findOne({
-    where: { code: "USER" },
-  });
-
   const newUser = {
     name: req.body.name,
     email: req.body.email,
     password: varPassword,
-    RoleId: baseRole.id,
   };
 
   console.log("Datos Rec:", newUser);
