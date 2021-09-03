@@ -36,10 +36,36 @@ function getOne(req, res) {
     })
 }
 
+function getCreator(req, res){
+
+    let creator_id = req.params.id
+    // console.log('Creator id value: ',creator_id);
+
+    db.Project.findAll({
+        include:{
+            model: db.User,
+            attributes:['name','email'],
+        },
+        attributes: [["id","ProjectId"], ["name", "ProjectName"],],
+        where: {id_project_creator: creator_id}
+
+    }).then(register =>{
+        
+        res.status(200).send(register)
+
+    }).catch(err =>{
+        res.status(500).send({
+            msg: 'Error',
+            error: err
+            // error: err.errors[0].message
+        })
+    })
+}
+
 function create(req, res) {
     const newRegister = {
         name: req.body.name,
-        description: req.body.code,
+        description: req.body.description,
         id_project_creator: req.body.id_project_creator
     }
 
@@ -107,10 +133,35 @@ function remove(req, res) {
     });
 }
 
+function getUsers(req, res){
+    const ProjectId = req.params.id
+
+    db.Project.findAll({
+        include:{
+            model: db.User,
+            attributes: ["id", "name"],
+        },
+        attributes: ["id", "name", "description","id_project_creator"],
+        // where: {id: ProjectId}
+
+    }).then(register =>{
+        
+        res.status(200).send(register)
+
+    }).catch(err =>{
+        res.status(500).send({
+            msg: 'Error',
+            error: err.errors[0].message
+        })
+    })
+}
+
 module.exports = {
   getAll,
   getOne,
+  getCreator,
   create,
   edit,
   remove,
+  getUsers,
 };

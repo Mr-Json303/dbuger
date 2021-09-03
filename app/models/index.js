@@ -20,14 +20,9 @@ db.User = require("./user.models")(sequelize, Sequelize);
 db.Role = require("./role.models")(sequelize, Sequelize);
 
 //Relaciones modelos base
-// db.Project.hasMany();
-// db.Role.hasMany(db.User);
-// db.User.belongsTo(db.Role);
-
-db.User.hasOne(db.Project, {
-    foreignKey: 'id_project_creator',
-});
-
+db.Project.belongsTo(db.User, {
+  foreignKey: 'id_project_creator',
+} )
 db.User.hasMany(db.ProjectGRoup)
 db.Role.hasMany(db.ProjectGRoup)
 db.Project.hasMany(db.ProjectGRoup)
@@ -36,8 +31,6 @@ db.ProjectGRoup.belongsTo(db.User)
 db.ProjectGRoup.belongsTo(db.Role)
 db.ProjectGRoup.belongsTo(db.Project)
 
-// db.User.belongsToMany(db.Project, {through : db.ProjectGRoup});
-// db.Role.belongsToMany(db.Project, {through : db.ProjectGRoup});
 
 //FIN\\Modelos Base ********************************************************
 

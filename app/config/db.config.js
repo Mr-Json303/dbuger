@@ -1,8 +1,8 @@
 module.exports ={
     HOST: 'localhost',
     USER: 'root',
-    PASSWORD: '',
+    PASSWORD: 'root',
     DB: 'fp_db',
-    port: '3306',
+    port: '8000',
     dialect: 'mysql',
 }

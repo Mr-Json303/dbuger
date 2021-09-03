@@ -6,7 +6,7 @@ const App = express();
 
 //Control de URL que acceden a la APIr
 const corsOptions = {
-    origin: ['https://localhost:4000', 'http://localhost']
+    origin: ['http://localhost:4000', 'http://localhost','http://localhost:3000']
 }
 
 App.use(express.json()); //antes body parser
@@ -40,7 +40,7 @@ App.use('/project', ProjectRoutes);
 App.use('/project-group', ProjectGroupRoutes);
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 App.listen(PORT, () =>{
     console.log('API en el puerto:', PORT);

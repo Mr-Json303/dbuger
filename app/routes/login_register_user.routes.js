@@ -8,5 +8,7 @@ LoginRegisterRoutes.post("/register", LoginRegisterController.register);
 
 LoginRegisterRoutes.post("/login", LoginRegisterController.login);
 
+LoginRegisterRoutes.post("/verifyToken", LoginRegisterController.verifyToken);
+
 
 module.exports = LoginRegisterRoutes;

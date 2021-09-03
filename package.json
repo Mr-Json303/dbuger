@@ -5,7 +5,8 @@
   "main": "app\\app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "@ECHO OFF & start \"NODEMON TERMINAL\" CMD.EXE /K \"nodemon %CD%\\app\\app.js\""
+    "dev": "nodemon app.js",
+    "dev2": "@ECHO OFF & start \"NODEMON TERMINAL\" CMD.EXE /K \"nodemon %CD%\\app\\app.js\""
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,6 @@
     "sequelize": "^6.6.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.12"
   }
 }

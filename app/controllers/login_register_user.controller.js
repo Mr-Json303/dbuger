@@ -5,7 +5,7 @@ const authConfig = require("../config/auth");
 
 //REGISTER FUNCTION=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 async function register(req, res) {
-//   console.log("req.body:", req.body);
+  //   console.log("req.body:", req.body);
 
   console.log(authConfig.rounds);
 
@@ -90,7 +90,59 @@ async function login(req, res) {
 }
 //\\=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+
+
+//\\=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+async function verifyToken(req, res) {
+
+  // console.log('req headers \n', req.headers );
+  let token = req.body.token;
+
+  if (!token) {
+    const error = new Error("No Authorization code");
+    error.statusCode = 401;
+    throw error;
+  }
+
+  let verifyToken;
+
+  try {
+    verifyToken = jwt.verify(token, authConfig.secret);
+  } catch (error) {
+    error.statusCode = 401;
+    res.status(401).send({error: '401'})  
+  }
+
+  console.log("Resultado de verify: ", verifyToken);
+
+  token = jwt.sign(
+    {
+      id: verifyToken.id,
+      email: verifyToken.email,
+      roleid: verifyToken.RoleId,
+    },
+    authConfig.secret,
+    {
+      expiresIn: authConfig.expires,
+    }
+  );
+
+  const data = {
+    token: token,
+    id: verifyToken.id,
+    email: verifyToken.email,
+    roleid: verifyToken.RoleId,
+  };
+
+  res.status(200).send({
+    msg: "Login was Successful",
+    data,
+  });
+}
+//\\=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 module.exports = {
   register,
   login,
+  verifyToken,
 };
