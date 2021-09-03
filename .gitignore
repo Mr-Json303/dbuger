@@ -1,3 +1,11 @@
-node_modules/*
+node_modules/
+node_modules/chokidar/
+node_modules/graceful-fs/
+node_modules/nodemon/
+node_modules/normalize-url/
+node_modules/picomatch/
+node_modules/readdirp/
+
+#Personal Ignored files and folders
 ignored_files/
-/.vscode
+.vscode/
