@@ -48,12 +48,12 @@ db.Issue.belongsTo(db.Project)
 
 // *The user who created it
 db.Issue.belongsTo(db.User, {
-  foreignKey: 'id_user_reporter',
+  foreignKey: 'ReporterId',
 } )
 
 // *The User is tasked to solve it
 db.Issue.belongsTo(db.User, {
-  foreignKey: 'id_user_assignee',
+  foreignKey: 'AssigneeId',
 } )
 
 // *The state is currently at
@@ -70,7 +70,7 @@ db.Issue.hasMany(db.tagList)
 
 // *Who was the last user to updated
 db.Issue.belongsTo(db.User, {
-  foreignKey: 'last_updated_by',
+  foreignKey: 'lastUpdatedBy',
 } )
 
 
