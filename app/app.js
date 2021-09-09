@@ -16,6 +16,7 @@ App.use(cors(corsOptions));
 const db = require('./models');
 
 // Modify tables if necesary = {alter: true}
+// db.sequelize.sync({alter: true}).then((result) =>{
 db.sequelize.sync().then((result) =>{
     console.log('DB Sincronizada OK')
 }).catch((err) => {
@@ -29,6 +30,14 @@ const LoginRegisterRoutes = require('./routes/login_register_user.routes')
 const ProjectRoutes = require('./routes/project.routes');
 const ProjectGroupRoutes = require('./routes/project_groups.routes')
 
+const IssueRoutes = require('./routes/issue.routes');
+const StateRoutes = require('./routes/state.routes');
+const PriorityLevelRoutes = require('./routes/priority_level.routes');
+const TagRoutes = require('./routes/tag.routes');
+const TagListRoutes = require('./routes/tag_list.routes');
+const CategoryRoutes = require('./routes/category.routes');
+const CategoryListRoutes = require('./routes/category_list.routes');
+
 
 //Routes
 App.use('/', LoginRegisterRoutes);
@@ -39,6 +48,13 @@ App.use('/role', RoleRoutes);
 App.use('/project', ProjectRoutes);
 App.use('/project-group', ProjectGroupRoutes);
 
+App.use('/issue',IssueRoutes);
+// App.use('/state',StateRoutes);
+// App.use('/priority-level',PriorityLevelRoutes);
+// App.use('/tag',TagRoutes);
+// App.use('/tag-list',TagListRoutes);
+// App.use('/category',CategoryRoutes);
+// App.use('/category-list',CategoryListRoutes);
 
 const PORT = process.env.PORT || 4000;
 
