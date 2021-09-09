@@ -19,6 +19,10 @@ module.exports = (sequelize, Sequelize) => {
         //* createdAt
         //* updatedAt
         //* last_updated_by (user id)
+        name: {
+            type: DataTypes.STRING(250),
+            allowNull: false,
+        },
         description:{
             type: DataTypes.STRING(500),
             allowNull: false,
@@ -26,6 +30,11 @@ module.exports = (sequelize, Sequelize) => {
         repeatability: {
             type: DataTypes.STRING(250),
             allowNull: false,
+        },
+        deleted:{
+            type: DataTypes.BOOLEAN(),
+            allowNull: true,
+            defaultValue: false,
         },
 
     }, {});
