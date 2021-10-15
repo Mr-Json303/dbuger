@@ -48,13 +48,13 @@ App.use('/role', RoleRoutes);
 App.use('/project', ProjectRoutes);
 App.use('/project-group', ProjectGroupRoutes);
 
-App.use('/issue',IssueRoutes);
-// App.use('/state',StateRoutes);
-// App.use('/priority-level',PriorityLevelRoutes);
-// App.use('/tag',TagRoutes);
-// App.use('/tag-list',TagListRoutes);
-// App.use('/category',CategoryRoutes);
-// App.use('/category-list',CategoryListRoutes);
+App.use('/issues',IssueRoutes);
+App.use('/state', StateRoutes);
+App.use('/priority-level',PriorityLevelRoutes);
+App.use('/tag',TagRoutes);
+App.use('/tag-list',TagListRoutes);
+App.use('/category',CategoryRoutes);
+App.use('/category-list',CategoryListRoutes);
 
 const PORT = process.env.PORT || 4000;
 
