@@ -4,10 +4,8 @@ const jwt = require("jsonwebtoken");
 const authConfig = require("../config/auth");
 
 //REGISTER FUNCTION=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-async function register(req, res) {
-  //   console.log("req.body:", req.body);
-
-  console.log(authConfig.rounds);
+async function register(req, res, next) {
+  console.log("req.body entrando al register: ", req.body);
 
   //Contraseña encriptada
   let varPassword = await bcrypt.hash(
@@ -25,33 +23,62 @@ async function register(req, res) {
 
   db.User.create(newUser)
     .then((user) => {
-      res.status(201).send({
-        msg: "New User registered correctly",
-        user,
-      });
+      console.log('user created: ', user);
+      req.body.email = user.email
+      req.body.password = req.body.password
+      // res.status(201).send({
+      //   msg: "New User registered correctly",
+      //   user,
+      // });
     })
     .catch((err) => {
       res.status(500).send({
         msg: "Error trying to register new user",
         err,
       });
-    });
+    }).finally( function(){
+      console.log("req.body en el finally:  ", req.body);
+      next()
+    } );
+
+    
 }
 //\\=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+async function testSearch(req, res){
+
+  console.log('\nreq.body de register', req.body);
+  console.log('\nres.body de register', res);
+
+  try {
+
+    res.status(200).send({
+      msg: "register was successful",
+      User: req.body
+    })
+  
+  } catch (error) {
+    res.status(500).send({
+      msg: "something happened",
+      error
+    }) 
+  }
+}
+
 //LOGIN FUNCTION=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 async function login(req, res) {
-  const loginData = {
-    email: req.body.email,
-    password: req.body.password,
-  };
+
+  console.log("req.body entrando al login: ", req.body);
 
   const varUser = await db.User.findOne({
     where: { email: req.body.email },
   });
 
+  console.log("User found on DB: ", varUser);
+ 
   if (varUser) {
     if (bcrypt.compareSync(req.body.password, varUser.password)) {
+      console.log("Successful Login");
       //Successfull login
       let token = jwt.sign(
         {
@@ -80,11 +107,13 @@ async function login(req, res) {
       //The password was incorrect
       res.status(500).send({
         msg: "Login error CODE: 002",
+        varUser
       });
     }
   } else {
     res.status(500).send({
       msg: "Login Error CODE: 001",
+      varUser
     });
   }
 }
@@ -145,4 +174,5 @@ module.exports = {
   register,
   login,
   verifyToken,
+  testSearch
 };

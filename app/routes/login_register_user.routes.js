@@ -4,7 +4,7 @@ const LoginRegisterController = require("../controllers/login_register_user.cont
 
 //unprotected endpoints
 
-LoginRegisterRoutes.post("/register", LoginRegisterController.register);
+LoginRegisterRoutes.post("/register", LoginRegisterController.register, LoginRegisterController.login);
 
 LoginRegisterRoutes.post("/login", LoginRegisterController.login);
 
