@@ -19,18 +19,18 @@ db.ProjectGRoup = require("./project_group.models")(sequelize, Sequelize);
 db.User = require("./user.models")(sequelize, Sequelize);
 db.Role = require("./role.models")(sequelize, Sequelize);
 
-db.Issue = require("./issue.models")(sequelize, Sequelize);
-db.state = require("./state.models")(sequelize, Sequelize);
-db.priorityLevel = require("./priority_level.models")(sequelize, Sequelize);
-db.tag = require("./tag.models")(sequelize, Sequelize);
-db.tagList = require("./tag_list.models")(sequelize, Sequelize);
-db.category = require("./category.models")(sequelize, Sequelize);
-db.categoryList = require("./category_list.models")(sequelize, Sequelize);
+db.State = require("./state.models")(sequelize, Sequelize);
+db.PriorityLevel = require("./priority_level.models")(sequelize, Sequelize);
+db.Tag = require("./tag.models")(sequelize, Sequelize);
+db.TagList = require("./tag_list.models")(sequelize, Sequelize);
+db.Category = require("./category.models")(sequelize, Sequelize);
+db.CategoryList = require("./category_list.models")(sequelize, Sequelize);
+db.Issue = require("./issue.models")(sequelize, Sequelize, db);
 
 //Relaciones modelos base
 db.Project.belongsTo(db.User, {
   foreignKey: 'id_project_creator',
-} )
+})
 db.User.hasMany(db.ProjectGRoup)
 db.Role.hasMany(db.ProjectGRoup)
 db.Project.hasMany(db.ProjectGRoup)
@@ -48,60 +48,63 @@ db.Issue.belongsTo(db.Project)
 
 // *The user who created it
 db.Issue.belongsTo(db.User, {
+  as: 'ReporterUser',
   foreignKey: 'ReporterId',
-} )
+})
 
 // *The User is tasked to solve it
 db.Issue.belongsTo(db.User, {
+  as: 'AssignedUser',
   foreignKey: 'AssigneeId',
-} )
+})
 
 // *The state is currently at
-db.Issue.belongsTo(db.state)
+db.Issue.belongsTo(db.State)
 
 // *The priority level it's been assigned
-db.Issue.belongsTo(db.priorityLevel)
+db.Issue.belongsTo(db.PriorityLevel)
 
 // *The categories it has
-db.Issue.hasMany(db.categoryList)
+db.Issue.hasMany(db.CategoryList)
 
 // *The tags it has
-db.Issue.hasMany(db.tagList)
+db.Issue.hasMany(db.TagList)
 
 // *Who was the last user to updated
 db.Issue.belongsTo(db.User, {
+  as: 'LastUpdatedByUser',
   foreignKey: 'lastUpdatedBy',
-} )
+})
 
 
 //**************************************
 //* Tag & Tag_List Table relationships *
 //**************************************
-db.tag.hasMany(db.tagList)
+db.Tag.hasMany(db.TagList)
 
-db.tagList.belongsTo(db.tag)
-db.tagList.belongsTo(db.Issue)
+db.TagList.belongsTo(db.Tag)
+db.TagList.belongsTo(db.Issue)
 
 
 //************************************************
 //* Category & Category_List Table relationships *
 //************************************************
-db.category.hasMany(db.categoryList)
+db.Category.hasMany(db.CategoryList)
 
-db.categoryList.belongsTo(db.category)
-db.categoryList.belongsTo(db.Issue)
+db.CategoryList.belongsTo(db.Category)
+db.CategoryList.belongsTo(db.Issue)
 
 
 //*****************************
 //* State Table relationships *
 //*****************************
-db.state.hasMany(db.Issue)
+db.State.hasMany(db.Issue)
 
 
 //**************************************
 //* Priority_Level Table relationships *
 //**************************************
-db.priorityLevel.hasMany(db.Issue)
+db.PriorityLevel.hasMany(db.Issue)
 
 
 //*FIN\\Modelos Base ********************************************************

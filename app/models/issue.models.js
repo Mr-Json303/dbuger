@@ -1,29 +1,14 @@
-const {DataTypes} = require ('sequelize');
+const { DataTypes } = require('sequelize');
 
-
-module.exports = (sequelize, Sequelize) => {
+module.exports = (sequelize, Sequelize, db) => {
 
     const Issue = sequelize.define('Issue', {
 
-        //*> Automated or FK Fields
-
-        //* Id_Issue
-        //* Id_Project
-        //* Id_user_reporter (user id)
-        //* Id_user_assignee (user id)
-        //* Id_state
-        //* Id_priority_level
-        //* Id_category_list
-        //* Id_tag_list
-        //* Id_tag_list
-        //* createdAt
-        //* updatedAt
-        //* last_updated_by (user id)
         name: {
             type: DataTypes.STRING(250),
             allowNull: false,
         },
-        description:{
+        description: {
             type: DataTypes.STRING(500),
             allowNull: false,
         },
@@ -31,13 +16,43 @@ module.exports = (sequelize, Sequelize) => {
             type: DataTypes.STRING(250),
             allowNull: false,
         },
-        deleted:{
+        deleted: {
             type: DataTypes.BOOLEAN(),
             allowNull: true,
             defaultValue: false,
         },
 
     }, {});
+
+    Issue.attributes = [
+        ["id", "IssueId"],
+        "name",
+        "description",
+        "repeatability",
+        "deleted"
+    ];
+    Issue.include = [{
+        model: db.Project,
+        attributes: ['id','name']
+    },{
+        model: db.User,
+        as: 'ReporterUser',
+        attributes: ['id','name', 'email']
+    },{
+        model: db.User,
+        as: 'AssignedUser',
+        attributes: ['id','name', 'email']
+    },{
+        model: db.User,
+        as: 'LastUpdatedByUser',
+        attributes: ['id','name', 'email']
+    },{
+        model: db.State,
+        attributes: ['id', 'name']
+    },{
+        model: db.PriorityLevel,
+        attributes: ['id', 'name']
+    }];
 
     return Issue;
 

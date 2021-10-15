@@ -2,7 +2,7 @@ const {DataTypes} = require ('sequelize');
 
 module.exports = (sequelize, Sequelize) => {
 
-    const Priority_Level = sequelize.define('Priority_Level', {
+    const Category = sequelize.define('Category', {
 
         name:{ //bug/UI/suggestion
             type: DataTypes.STRING(50),
@@ -15,6 +15,6 @@ module.exports = (sequelize, Sequelize) => {
 
     }, {});
 
-    return Priority_Level;
+    return Category;
 
 }
