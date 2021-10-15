@@ -3,8 +3,7 @@ const db = require("../models/index");
 
 function getAll(req, res) {
     db.Issue.findAll({
-        attributes: ["id", "name", "description"],
-        order: [["name", "DESC"]],
+        order: [["id", "ASC"]],
     })
         .then((registers) => {
             res.status(200).send(registers);
@@ -21,8 +20,13 @@ function getOne(req, res) {
     const key = req.params.key
     const value = req.params.value
 
+
+
     db.Issue.findAll({
-        attributes: ["id", "name", "description"],
+        attributes: db.Issue.attributes,
+
+        include: db.Issue.include,
+        
         where: { [key]: value }
 
     }).then(register => {
@@ -32,7 +36,7 @@ function getOne(req, res) {
     }).catch(err => {
         res.status(500).send({
             msg: 'Error',
-            error: err.errors[0].message
+            error: err
         })
     })
 }
@@ -98,7 +102,7 @@ function create(req, res) {
         AssigneeId: req.body.AssigneeId,
         PriorityLevelId: req.body.PriorityLevelId,
         StateId: req.body.StateId,
-        lastUpdatedBy: req.body.ReporterId,
+        lastUpdatedBy: req.body.LastUpdatedById,
     }
 
     db.Issue.create(newRegister)
